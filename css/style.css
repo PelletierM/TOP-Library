@@ -1,0 +1,64 @@
+* {
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  min-height: 100vh;
+  min-height: 100svh;
+}
+
+.book-list {
+  height: 100%;
+  width: 50%;
+  display: grid;
+  grid-template-columns: repeat(autofit, minmax(200px, 1fr));
+  grid-template-rows: repeat(autofit, minmax(200px, 1fr));
+  gap: 20px;
+}
+
+.book-list > div {
+  display: flex;
+  flex-direction: column;
+}
+
+.read {
+  align-self: flex-end;
+  width: 2rem;
+  height: 1rem;
+  background-color: grey;
+  border-radius: 0.5rem;
+  position: relative;
+}
+
+.read::before {
+  content: 'read';
+  position: absolute;
+  right: 100%;
+  pointer-events: none;
+}
+
+.read::after {
+  content: '';
+  width: 1rem;
+  height: 1rem;
+  border-radius: 1rem;
+  background-color: black;
+  position: absolute;
+  transition: 400ms;
+}
+
+.book-list > div.read-true .read::after {
+  right: 0%;
+}
+
+.book-list > div.read-false .read::after {
+  right: 50%;
+}
+
+.delete {
+  align-self: flex-end;
+  width: 2rem;
+  height: 1rem;
+  background-color: red;
+}

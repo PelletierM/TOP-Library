@@ -5,7 +5,11 @@ function Book(title, author, pages, read) {
   this.author = author;
   this.pages = pages;
   this.read = read;
+  this.delete = {};
+  this.index = (bookList.length); /* Index given before book is added to bookList */
 }
+
+Book.prototype.toggleReadMethod = function toggleRead() { this.read = !this.read; };
 
 function createBookElement(key, value) {
   const element = document.createElement('div');
@@ -17,26 +21,57 @@ function createBookElement(key, value) {
 function createBookDOM(book, dataIndex) {
   let bookDOM = document.createElement('div');
   Object.keys(book).forEach((key) => {
-    if (typeof book[key] !== 'boolean') {
+    if (typeof book[key] === 'string') {
       bookDOM.appendChild(createBookElement(key, book[key]));
+    } else {
+      bookDOM.appendChild(createBookElement(key, ''));
     }
   });
   bookDOM.dataset.index = dataIndex;
   bookDOM.classList.add(`read-${book.read}`);
-  let parent = document.querySelector('.book-list');
+  const parent = document.querySelector('.book-list');
   parent.appendChild(bookDOM);
 }
 
 function addBook(title, author, pages, read) {
   const book = new Book(title, author, pages, read);
   bookList.push(book);
-  const dataIndex = bookList.length - 1; /* Might be better to simply have a counter somewhere */
-  createBookDOM(book, dataIndex);
+  createBookDOM(book, book.index);
 }
 
-/* For testing - remove when done */
-addBook('Book 1', 'By Me', 287, true);
-addBook('Book 2', 'Not by me', 123, false);
+function updateIndexes() {
+  bookList.forEach((book) => {
+    const previousIndex = book.index;
+    // eslint-disable-next-line no-param-reassign
+    book.index = bookList.indexOf(book);
+    const bookDOM = document.querySelector(`[data-index='${previousIndex}']`);
+    bookDOM.dataset.index = book.index;
+  });
+}
 
-/* Interactions */
-Book.prototype.toggleRead = function toggleRead() { this.read = !this.read; };
+function toggleRead(e) {
+  const parentIndex = e.target.parentNode.dataset.index;
+  bookList[parentIndex].toggleReadMethod();
+  e.target.parentNode.classList.remove(`read-${!bookList[parentIndex].read}`);
+  e.target.parentNode.classList.add(`read-${bookList[parentIndex].read}`);
+}
+
+function deleteElement(e) {
+  const parentIndex = e.target.parentNode.dataset.index;
+  bookList.splice(parentIndex, 1);
+  e.target.parentNode.remove();
+  updateIndexes();
+}
+
+document.addEventListener('click', (e) => {
+  if (e.target.classList.contains('read')) {
+    toggleRead(e);
+  }
+  if (e.target.classList.contains('delete')) {
+    deleteElement(e);
+  }
+});
+
+/* For testing - remove when done */
+addBook('Book 1', 'By Me', '287', true);
+addBook('Book 2', 'Not by me', '123', false);
