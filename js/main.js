@@ -72,6 +72,13 @@ document.addEventListener('click', (e) => {
   }
 });
 
+const form = document.querySelector('form');
+form.addEventListener('submit', (e) => {
+  e.preventDefault();
+  const data = new FormData(form);
+  addBook(data.get('title'), data.get('author'), data.get('pages'), !!data.get('read'));
+});
+
 /* For testing - remove when done */
 addBook('Book 1', 'By Me', '287', true);
 addBook('Book 2', 'Not by me', '123', false);
