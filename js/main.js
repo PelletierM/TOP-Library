@@ -9,7 +9,7 @@ function Book(title, author, pages, read) {
   this.index = (bookList.length); /* Index given before book is added to bookList */
 }
 
-Book.prototype.toggleReadMethod = function toggleRead() { this.read = !this.read; };
+Book.prototype.toggleReadMethod = function toggleReadMethod() { this.read = !this.read; };
 
 function createBookElement(key, value) {
   const element = document.createElement('div');
@@ -72,11 +72,77 @@ document.addEventListener('click', (e) => {
   }
 });
 
+/*
+Form interactions and validation
+*/
+const showModal = document.querySelector('.show-form');
+showModal.addEventListener('click', () => {
+  const modal = document.querySelector('.modal-form');
+  modal.classList.add('active');
+});
+
+function closeModal() {
+  const modal = document.querySelector('.modal-form');
+  modal.classList.remove('active');
+}
+
+const closeModalButton = document.querySelector('.close-modal');
+closeModalButton.addEventListener('click', () => {
+  closeModal();
+});
+
+const inputFields = document.querySelectorAll('input');
+const errorMessages = {
+  title: 'Please enter a book title.',
+  author: 'Please enter the author of the book.',
+  pages: 'Please enter the number of pages.',
+  read: 'Please enter if you have read the book or not.',
+};
+
+inputFields.forEach((inputField) => {
+  inputField.addEventListener('focusin', (e) => {
+    e.target.parentElement.classList.add('focus');
+    e.target.parentElement.querySelector('label').classList.add('active');
+  });
+  inputField.addEventListener('focusout', (e) => {
+    e.target.parentElement.classList.remove('focus');
+    if (e.target.value === '') {
+      e.target.parentElement.querySelector('label').classList.remove('active');
+    }
+  });
+  inputField.addEventListener('input', (e) => {
+    if (e.target.validity.valid) {
+      e.target.parentElement.querySelector('.error-message').textContent = '';
+      e.target.parentElement.classList.remove('invalid');
+    }
+  });
+});
+
+function updateErrorMessage(inputField) {
+  const errorSpan = inputField.parentElement.querySelector('.error-message');
+  errorSpan.textContent = errorMessages[inputField.name];
+  inputField.parentElement.classList.add('invalid');
+}
+
+function checkFormValidity() {
+  let output = true;
+  inputFields.forEach((inputField) => {
+    if (!inputField.validity.valid) {
+      updateErrorMessage(inputField);
+      output = false;
+    }
+  });
+  return output;
+}
+
 const form = document.querySelector('form');
 form.addEventListener('submit', (e) => {
   e.preventDefault();
   const data = new FormData(form);
-  addBook(data.get('title'), data.get('author'), data.get('pages'), !!data.get('read'));
+  if (checkFormValidity()) {
+    addBook(data.get('title'), data.get('author'), data.get('pages'), !!data.get('read'));
+    closeModal();
+  }
 });
 
 /* For testing - remove when done */

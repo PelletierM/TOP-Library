@@ -5,40 +5,49 @@
   <title>Library</title>
   <script src="./js/main.js" defer></script>
   <link rel="stylesheet" href="./css/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@300;400;500;700&display=swap" rel="stylesheet">  
 </head>
 <body>
   <div class="book-list">
   </div>
-  <form action="" method="get" id="new-book-form">
-    <div>
-      <label for="title" class="required">Title</label>
-      <input type="text" id="title" name="title" placeholder="" required>
-      <span class="error-message"></span>
+  <button class="show-form">Add book</button>
+  <div class="modal-form">
+    <span class="close-modal">&#215;</span>
+    <div class="container-form">
+      <form action="" method="get" id="new-book-form" novalidate>
+        <div>
+          <label for="title" class="required">Title</label>
+          <input type="text" id="title" name="title" placeholder="" required>
+          <span class="error-message"></span>
+        </div>
+        <div>
+          <label for="author" class="required">Author</label>
+          <input type="text" id="author" name="author" placeholder="" required>
+          <span class="error-message"></span>
+        </div>
+        <div>
+          <label for="pages" class="required">Number of pages</label>
+          <input type="tel" id="pages" name="pages" placeholder="" required>
+          <span class="error-message"></span>
+        </div>
+        <fieldset>
+          <legend>Have you read it?</legend>
+          <div>
+            <label for="read-true" class="required">Yes</label>
+            <input type="radio" id="read-true" name="read" value="1" required>
+            <span class="error-message"></span>
+          </div>
+          <div>
+            <label for="read-false" class="required">No</label>
+            <input type="radio" id="read-false" name="read" value="">
+            <span class="error-message"></span>
+          </div>
+        </fieldset>
+      </form>
+      <button class="submit-book" form="new-book-form" type="submit">Add book</button>
     </div>
-    <div>
-      <label for="author" class="required">Author</label>
-      <input type="text" id="author" name="author" placeholder="" required>
-      <span class="error-message"></span>
-    </div>
-    <div>
-      <label for="pages" class="required">Number of pages</label>
-      <input type="tel" id="pages" name="pages" placeholder="" required>
-      <span class="error-message"></span>
-    </div>
-    <fieldset>
-      <legend>Have you read it?</legend>
-      <div>
-        <label for="read-true" class="required">Yes</label>
-        <input type="radio" id="read-true" name="read" value="1" required>
-        <span class="error-message"></span>
-      </div>
-      <div>
-        <label for="read-false" class="required">No</label>
-        <input type="radio" id="read-false" name="read" value="">
-        <span class="error-message"></span>
-      </div>
-    </fieldset>
-  </form>
-  <button class="submit-book" form="new-book-form" type="submit">Add book</button>
+  </div>
 </body>
 </html>
