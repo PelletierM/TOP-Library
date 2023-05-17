@@ -14,35 +14,35 @@
   </div>
   <button class="show-form">Add book</button>
   <div class="modal-form">
-    <span class="close-modal">&#215;</span>
     <div class="container-form">
+      <span class="close-modal">&#215;</span>
+      <h1>Add a book!</h1>
       <form action="" method="get" id="new-book-form" novalidate>
-        <div>
-          <label for="title" class="required">Title</label>
-          <input type="text" id="title" name="title" placeholder="" required>
-          <span class="error-message"></span>
+        <div class="input-text">
+          <label for="title" class="required text-type">Title</label>
+          <input class="text-type" type="text" id="title" name="title" placeholder="" required>
+          <span class="error-message">Please enter a book title.</span>
         </div>
-        <div>
-          <label for="author" class="required">Author</label>
-          <input type="text" id="author" name="author" placeholder="" required>
-          <span class="error-message"></span>
+        <div class="input-text">
+          <label for="author" class="required text-type">Author</label>
+          <input class="text-type" type="text" id="author" name="author" placeholder="" required>
+          <span class="error-message">Please enter the author of the book.</span>
         </div>
-        <div>
-          <label for="pages" class="required">Number of pages</label>
-          <input type="tel" id="pages" name="pages" placeholder="" required>
-          <span class="error-message"></span>
+        <div class="input-text">
+          <label for="pages" class="required text-type">Number of pages</label>
+          <input class="text-type" type="number" id="pages" name="pages" placeholder="" required>
+          <span class="error-message">Please enter the number of pages.</span>
         </div>
         <fieldset>
-          <legend>Have you read it?</legend>
+          <legend class="required">Have you read it?</legend>
           <div>
-            <label for="read-true" class="required">Yes</label>
             <input type="radio" id="read-true" name="read" value="1" required>
-            <span class="error-message"></span>
+            <label for="read-true">Yes</label>
+            <span class="error-message">Please enter if you have read the book.</span>
           </div>
           <div>
-            <label for="read-false" class="required">No</label>
             <input type="radio" id="read-false" name="read" value="">
-            <span class="error-message"></span>
+            <label for="read-false">No</label>
           </div>
         </fieldset>
       </form>

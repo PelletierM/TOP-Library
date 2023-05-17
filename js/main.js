@@ -72,32 +72,33 @@ document.addEventListener('click', (e) => {
   }
 });
 
-/*
-Form interactions and validation
-*/
+/* Form interactions and validation */
+const inputFields = document.querySelectorAll('input');
 const showModal = document.querySelector('.show-form');
+const closeModalButton = document.querySelector('.close-modal');
+
 showModal.addEventListener('click', () => {
   const modal = document.querySelector('.modal-form');
   modal.classList.add('active');
 });
 
+function resetForm() {
+  document.querySelector('form').reset();
+  inputFields.forEach((inputField) => {
+    inputField.parentElement.classList.remove('invalid');
+    inputField.parentElement.querySelector('label').classList.remove('active');
+  });
+}
+
 function closeModal() {
   const modal = document.querySelector('.modal-form');
   modal.classList.remove('active');
+  resetForm();
 }
 
-const closeModalButton = document.querySelector('.close-modal');
 closeModalButton.addEventListener('click', () => {
   closeModal();
 });
-
-const inputFields = document.querySelectorAll('input');
-const errorMessages = {
-  title: 'Please enter a book title.',
-  author: 'Please enter the author of the book.',
-  pages: 'Please enter the number of pages.',
-  read: 'Please enter if you have read the book or not.',
-};
 
 inputFields.forEach((inputField) => {
   inputField.addEventListener('focusin', (e) => {
@@ -112,23 +113,16 @@ inputFields.forEach((inputField) => {
   });
   inputField.addEventListener('input', (e) => {
     if (e.target.validity.valid) {
-      e.target.parentElement.querySelector('.error-message').textContent = '';
       e.target.parentElement.classList.remove('invalid');
     }
   });
 });
 
-function updateErrorMessage(inputField) {
-  const errorSpan = inputField.parentElement.querySelector('.error-message');
-  errorSpan.textContent = errorMessages[inputField.name];
-  inputField.parentElement.classList.add('invalid');
-}
-
 function checkFormValidity() {
   let output = true;
   inputFields.forEach((inputField) => {
     if (!inputField.validity.valid) {
-      updateErrorMessage(inputField);
+      inputField.parentElement.classList.add('invalid');
       output = false;
     }
   });
