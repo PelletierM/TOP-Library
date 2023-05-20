@@ -4,19 +4,29 @@
   font-size:16px;
 
   --color-background-modal: rgba(0, 0, 0, 0.6);
-  --color-background-form: rgb(255, 255, 255);
+  --color-background-main: rgb(255, 255, 255);
+  --color-background-secondary: rgb(220, 220, 220);
   --color-form-invalid: rgb(210, 150, 150);
   --color-form-active: rgb(0, 0, 0);
   --color-form-inactive: rgb(178, 178, 178);
-  --color-accent-full: rgb(1, 75, 83);
-  --color-accent-fade: rgb(60, 116, 122);
+  --color-accent-main: rgb(0, 56, 62);
+  --color-accent-hover: rgb(40, 95, 101);
+  --color-accent-active: rgb(78, 131, 138);
   --transition-time-standard: 250ms;
   --transition-time-fast: 0.125s;
+  --height-footer: min(12vh, 5rem);
+  --height-header: min(15vh, 6rem);
+  --width-content: calc(min(80vw, 1024px));
 }
 
 * {
   padding: 0;
   margin: 0;
+  box-sizing: border-box;
+}
+
+a, button, .close-modal, .read, .delete {
+  cursor: pointer;
 }
 
 body {
@@ -24,17 +34,74 @@ body {
   min-height: 100svh;
 }
 
+header, main, footer {
+  width: 100%;
+  padding: 0 calc((100vw - var(--width-content)) / 2) ;
+}
+
+header {
+  height: var(--height-header);
+  background-color: var(--height-header);
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 0.75rem;
+  color: var(--color-accent-main);
+}
+
+header h1{
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+header svg {
+  height: 2rem;
+  width: 2rem;
+}
+
+main {
+  background-color: var(--color-background-secondary);
+  height: calc(100vh - var(--height-footer) - var(--height-header));
+  height: calc(100svh - var(--height-footer) - var(--height-header));
+  overflow: auto;
+  z-index: 0;
+}
+
+main::before {
+  content: '';
+  position: fixed;
+  height: 1rem;
+  width: 100%;
+  top: var(--height-header);
+  left: 0;
+  background-color: var(--color-background-secondary);
+  z-index: 1;
+}
+
+main > div::after {
+  content: '';
+  height: 4rem;
+  width: 100%;
+  grid-column: 1 / -1;
+}
+
 /* Book cards */
 .book-list {
+  padding: 1rem 0;
   height: 100%;
-  width: 50%;
+  width: 100%;
   display: grid;
-  grid-template-columns: repeat(autofit, minmax(200px, 1fr));
-  grid-template-rows: repeat(autofit, minmax(200px, 1fr));
-  gap: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+  grid-template-rows: repeat(auto-fit, minmax(12rem, 1fr));
+  gap: 1rem;
 }
 
 .book-list > div {
+  min-height: 12rem;
+  border-radius: 1rem;
+  border-style: none;
+  background-color: var(--color-background-main);
+  padding: 1rem;
   display: flex;
   flex-direction: column;
 }
@@ -91,26 +158,29 @@ body {
   width: 100%;
   height: 100%;
   background-color: var(--color-background-modal);
-  z-index: -1;
+  z-index: 2;
+  pointer-events: none;
   opacity: 0;
   transition: var(--transition-time-standard);
 }
 
 .modal-form.active {
-  z-index: 1;
+  pointer-events: all;
   opacity: 1;
 }
 
 .container-form {
-  background-color: var(--color-background-form);
-  margin-top: min(192px, 10vh);
+  background-color: var(--color-background-main);
+  margin-top: calc(var(--height-header) + 1rem);
   width: min(16rem, 60vw);
+  height: min(20.25rem, calc(100vh - var(--height-header) - var(--height-footer) - 2rem));
   padding: 1rem;
   border-radius: 1rem;
   position: relative;
+  overflow: auto;
 }
 
-.container-form h1 {
+.container-form h2 {
   font-size: 1.25rem;
   padding-bottom: 0.5rem;
   color: var(--color-form-active);
@@ -118,21 +188,20 @@ body {
 
 .close-modal {
   position: absolute;
-  right: 0.25rem;
-  top: 0.25rem;
-  height: 2rem;
-  width: 2rem;
+  right: 1rem;
+  top: 0.625rem;
+  font-size: 1.75rem;
+  line-height: 1.75rem;
+  font-weight: 700;
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 1.5rem;
-  cursor: pointer;
   color: var(--color-form-inactive);
   transition: var(--transition-time-standard);
 }
 
 .close-modal:hover {
-  color: var(--color-form-active);
+  color: var(--color-accent-main);
 }
 
 form {
@@ -247,8 +316,8 @@ input[type="radio"] {
   width: 0.75rem;
   height: 0.75rem;
   box-shadow: 0 0 0 1px var(--color-form-inactive);
-  border: 0.375rem solid var(--color-background-form);
-  background-color: var(--color-background-form);
+  border: 0.375rem solid var(--color-background-main);
+  background-color: var(--color-background-main);
   transition: calc(0.5 * var(--transition-time-standard));
   transition-timing-function: linear;
 }
@@ -260,7 +329,7 @@ input[type="radio"] ~ label {
 input[type="radio"]:checked {
   box-shadow: 0 0 0 1px var(--color-form-active);
   background-color: var(--color-form-active);
-  border: 0.175rem solid var(--color-background-form);
+  border: 0.175rem solid var(--color-background-main);
 }
 
 input[type="radio"]:checked ~ label {
@@ -298,15 +367,70 @@ form ~ button {
   border: none;
   border-radius: 0.75rem;
   padding: 0.25rem 0.5rem;
-  background-color: var(--color-form-active);
-  color: var(--color-background-form);
+  background-color: var(--color-accent-main);
+  color: var(--color-background-main);
   transition: var(--transition-time-fast);
 }
 
 form ~ button:hover {
-  background-color: var(--color-accent-full);
+  background-color: var(--color-accent-hover);
 }
 
 form ~ button:active {
-  background-color: var(--color-accent-fade);
+  background-color: var(--color-accent-active);
+}
+
+footer {
+  position: fixed;
+  bottom: 0;
+  height: var(--height-footer);
+  background-color: var(--color-background-main);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+footer div {
+  position: absolute;
+  bottom: 100%;
+  width: 100%;
+  height: 5rem;
+  background: linear-gradient(0deg, var(--color-background-secondary) 0%,transparent 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
+footer button {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  border-style: none;
+  background-color: var(--color-accent-main);
+  color: var(--color-background-main);
+  font-size: 2rem;
+  font-weight: 700;
+  transition: var(--transition-time-standard);
+  pointer-events: all;
+}
+
+footer button:hover {
+  background-color: var(--color-accent-hover);
+}
+
+footer button:active {
+  background-color: var(--color-accent-active);
+}
+
+footer a {
+  text-decoration: none;
+  color: var(--color-accent-main);
+  font-weight: 500;
+  transition: var(--transition-time-standard);
+}
+
+footer a:hover {
+  color: var(--color-accent-active);
 }

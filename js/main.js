@@ -41,7 +41,6 @@ let addBook;
     const book = new Book(title, author, pages, read);
     bookList.push(book);
     createBookDOM(book, book.index);
-    console.log(bookList);
   };
 
   function updateIndexes() {
@@ -152,4 +151,17 @@ let addBook;
   });
 })();
 
+(() => {
+  const year = new Date();
+  document.querySelector('.year').textContent += year.getFullYear();
+})();
+
+addBook('The Hobbit', 'J.R.R. Tolkien', '317', true);
+addBook('The Hobbit', 'J.R.R. Tolkien', '317', true);
+addBook('The Hobbit', 'J.R.R. Tolkien', '317', true);
+addBook('The Hobbit', 'J.R.R. Tolkien', '317', true);
+addBook('The Hobbit', 'J.R.R. Tolkien', '317', true);
+addBook('The Hobbit', 'J.R.R. Tolkien', '317', true);
+addBook('The Hobbit', 'J.R.R. Tolkien', '317', true);
+addBook('The Hobbit', 'J.R.R. Tolkien', '317', true);
 addBook('The Hobbit', 'J.R.R. Tolkien', '317', true);

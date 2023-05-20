@@ -10,35 +10,50 @@
   <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@300;400;500;700&display=swap" rel="stylesheet">  
 </head>
 <body>
-  <div class="book-list">
-  </div>
-  <button class="show-form">Add book</button>
+  <header>
+    <svg width="100%" height="100%" viewBox="0 0 192 192" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/">
+        <path fill="currentColor" d="M192,158.195L192,24.812C192,24.812 140.669,-4.018 100,42.617L100,176C100,176 135.008,130.303 192,158.195Z"/>
+        <path fill="currentColor" d="M0,158.195L0,24.812C0,24.812 51.331,-4.018 92,42.617L92,176C92,176 56.992,130.303 0,158.195Z"/>
+    </svg>
+    <h1>library</h1>
+  </header>
+  <main>
+    <div class="book-list">
+    </div>
+  </main>
+  <footer>
+      <div>
+        <button class="show-form">+</button>
+      </div>
+      <p>Copyright &#169; <a href=https://github.com/PelletierM/TOP-Library>PelletierM</a> <span class="year"></span> </p>
+    </div>
+  </footer>
   <div class="modal-form">
     <div class="container-form">
       <span class="close-modal">&#215;</span>
-      <h1>Add a book!</h1>
+      <h2>Add a book!</h1>
       <form action="" method="get" id="new-book-form" novalidate>
         <div class="input-text">
-          <label for="title" class="required text-type">Title</label>
+            <label for="title" class="required text-type">Title</label>
           <input class="text-type" type="text" id="title" name="title" placeholder="" required>
-          <span class="error-message">Please enter a book title.</span>
+          <span class="error-message" aria-hiddne="true">Please enter a book title.</span>
         </div>
         <div class="input-text">
           <label for="author" class="required text-type">Author</label>
           <input class="text-type" type="text" id="author" name="author" placeholder="" required>
-          <span class="error-message">Please enter the author of the book.</span>
+          <span class="error-message" aria-hidden="true">Please enter the author of the book.</span>
         </div>
         <div class="input-text">
           <label for="pages" class="required text-type">Number of pages</label>
           <input class="text-type" type="number" id="pages" name="pages" placeholder="" required>
-          <span class="error-message">Please enter the number of pages.</span>
+          <span class="error-message" aria-hidden="true">Please enter the number of pages.</span>
         </div>
         <fieldset>
           <legend class="required">Have you read it?</legend>
           <div>
             <input type="radio" id="read-true" name="read" value="1" required>
             <label for="read-true">Yes</label>
-            <span class="error-message">Please enter if you have read the book.</span>
+            <span class="error-message" aria-hidden="true">Please enter if you have read the book.</span>
           </div>
           <div>
             <input type="radio" id="read-false" name="read" value="">
