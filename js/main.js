@@ -157,11 +157,3 @@ let addBook;
 })();
 
 addBook('The Hobbit', 'J.R.R. Tolkien', '317', true);
-addBook('The Hobbit', 'J.R.R. Tolkien', '317', true);
-addBook('The Hobbit', 'J.R.R. Tolkien', '317', true);
-addBook('The Hobbit', 'J.R.R. Tolkien', '317', true);
-addBook('The Hobbit', 'J.R.R. Tolkien', '317', true);
-addBook('The Hobbit', 'J.R.R. Tolkien', '317', true);
-addBook('The Hobbit', 'J.R.R. Tolkien', '317', true);
-addBook('The Hobbit', 'J.R.R. Tolkien', '317', true);
-addBook('The Hobbit', 'J.R.R. Tolkien', '317', true);
